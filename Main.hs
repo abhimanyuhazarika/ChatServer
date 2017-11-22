@@ -17,6 +17,19 @@ main = do
     hashTSClientName <- H.new ::IO (Hashtable String Int)
     chatRooms<-newMVar(ChatRooms {chatRoomFromId=hashTIChat, chatRoomIdFromName=hashTSI, numberOfChatRooms=0})
     mainLoop sock                              
+
+server :: Socket -> String -> Chan Bool -> MVar Clients -> MVar ChatRooms -> IO ()
+server sock port killedChan clients chatrooms = do
+    clog "Waiting for incoming connection..."
+    conn <- try (accept sock) :: IO (Either SomeException (Socket, SockAddr))  -- try to accept a connection and handle it
+    case conn of
+        Left  _    -> clog "Socket is now closed. Exiting."
+        Right conn -> do
+            clog "Got a client !"
+            runClient conn sock port killedChan clients chatrooms       -- run our client's logic, then
+            server sock port killedChan clients chatrooms               -- repeat
+
+
 mainLoop :: Socket -> IO ()
 mainLoop sock = do
     conn <- accept sock     -- accept a connection and handle it
