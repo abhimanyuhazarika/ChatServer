@@ -1,5 +1,12 @@
 module Client where
 
+-- Kill server and all clients
+killService :: Socket -> IO ()
+killService originalSocket = do
+    clog "Killing Service..."
+    shutdown originalSocket ShutdownBoth
+    close originalSocket
+
 -- Basic "Helo" response
 helo :: Handle -> String -> String -> IO ()
 helo hdl text port = do
