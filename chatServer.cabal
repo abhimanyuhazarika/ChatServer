@@ -1,4 +1,4 @@
-name:                chatServer
+nname:                chatServer
 version:             0.1.0.0
 -- synopsis:
 -- description:
@@ -15,7 +15,7 @@ cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
-  exposed-modules:     Client, Utils
+  exposed-modules:     ChatHelpers
   build-depends:       base >= 4.7 && < 5, split, network,iproute, directory, MissingH, hashtables
   default-language:    Haskell2010
 
