@@ -239,7 +239,7 @@ disconnect hdl args clients = do
         return error
     else do
         let disconnect            = lines !! 0
-         let portLine              = lines !! 1
+        let portLine              = lines !! 1
         let clientNameLine        = lines !! 2
         let clientNameLineParsed  = splitOn " " clientNameLine
         let clientNameHeader      = head clientNameLineParsed
